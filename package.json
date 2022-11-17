@@ -1,9 +1,12 @@
 {
-  "name": "heic-to-jpg-converter",
+  "name": "heic-converter",
   "version": "1.0.0",
   "main": "index.js",
+  "preferGlobal": true,
+  "bin": "./index.js",
   "license": "MIT",
   "dependencies": {
+    "commander": "^9.4.1",
     "exiftool-vendored": "^18.6.0",
     "heic-convert": "^1.2.4"
   }
