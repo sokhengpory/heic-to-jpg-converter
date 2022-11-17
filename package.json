@@ -1,0 +1,10 @@
+{
+  "name": "heic-to-jpg-converter",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "exiftool-vendored": "^18.6.0",
+    "heic-convert": "^1.2.4"
+  }
+}
