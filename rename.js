@@ -1,7 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 
-const rename = (dirPath) => {
+const rename = (dirPath, startNum) => {
+  console.log(startNum);
   const renameFolder = path.resolve(dirPath);
 
   fs.readdirSync(renameFolder).forEach((file, i) => {
@@ -9,7 +10,7 @@ const rename = (dirPath) => {
 
     fs.rename(
       path.join(renameFolder, file),
-      path.join(renameFolder, `${i}.${extensions}`),
+      path.join(renameFolder, `${startNum + i}.${extensions}`),
       (err) => {
         if (err) console.log(err);
       }
