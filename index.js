@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 const { program } = require('commander');
-const { convert } = require('./convert');
+const convert = require('./convert');
 const rename = require('./rename');
 const move = require('./move');
 const webp = require('./webp');

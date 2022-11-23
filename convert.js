@@ -2,14 +2,7 @@ const fs = require('fs/promises');
 const path = require('path');
 const convert = require('heic-convert');
 const { exiftool } = require('exiftool-vendored');
-
-const createJpgFolder = async (directoryPath) => {
-  try {
-    await fs.access(directoryPath);
-  } catch (error) {
-    await fs.mkdir(directoryPath);
-  }
-};
+const { createJpgFolder } = require('./utils');
 
 const getValidTags = (tags, exampleTags) => {
   const exampleTagsKeys = Object.keys(exampleTags);

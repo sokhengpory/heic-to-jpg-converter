@@ -1,14 +1,7 @@
 const webp = require('webp-converter');
 const path = require('path');
 const fs = require('fs/promises');
-
-const createJpgFolder = async (directoryPath) => {
-  try {
-    await fs.access(directoryPath);
-  } catch (error) {
-    await fs.mkdir(directoryPath);
-  }
-};
+const { createJpgFolder } = require('./utils');
 
 const displayResultMessage = (resultMessage) => {
   const messages = resultMessage.split('. ');

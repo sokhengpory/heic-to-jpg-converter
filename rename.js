@@ -2,7 +2,6 @@ const fs = require('fs');
 const path = require('path');
 
 const rename = (dirPath, startNum) => {
-  console.log(startNum);
   const renameFolder = path.resolve(dirPath);
 
   fs.readdirSync(renameFolder).forEach((file, i) => {
