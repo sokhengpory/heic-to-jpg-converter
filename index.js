@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 const { program } = require('commander');
-const convert = require('./convert');
 const rename = require('./rename');
 const move = require('./move');
 const webp = require('./webp');
+const convert = require('./convert');
 
 program.version('1.0.0');
 
@@ -12,7 +12,11 @@ program
   .description('Convert HEIC image to JPG')
   .argument('<directory path>', 'heic directory path')
   .action(async (path) => {
+    let t = process.hrtime();
     await convert(path);
+    t = process.hrtime(t);
+
+    console.log(`Finished in ${t[0]}s`);
   });
 
 program

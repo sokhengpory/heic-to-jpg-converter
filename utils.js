@@ -1,13 +1,8 @@
-const fs = require('fs/promises');
-
-const createJpgFolder = async (directoryPath) => {
-  try {
-    await fs.access(directoryPath);
-  } catch (error) {
-    await fs.mkdir(directoryPath);
-  }
-};
+const chunkArray = (arr, size) =>
+  arr.length > size
+    ? [arr.slice(0, size), ...chunkArray(arr.slice(size), size)]
+    : [arr];
 
 module.exports = {
-  createJpgFolder,
+  chunkArray,
 };
