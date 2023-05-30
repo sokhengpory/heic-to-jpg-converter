@@ -1,9 +1,11 @@
 {
   "name": "heic-converter",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "cli.js",
   "preferGlobal": true,
-  "bin": "./index.js",
+  "bin": {
+    "heic-convert": "./cli.js"
+  },
   "license": "MIT",
   "dependencies": {
     "commander": "^9.4.1",

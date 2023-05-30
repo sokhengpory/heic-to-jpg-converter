@@ -2,7 +2,6 @@ const fs = require('fs/promises');
 const path = require('path');
 const convert = require('heic-convert');
 const { exiftool } = require('exiftool-vendored');
-const { createJpgFolder } = require('./utils');
 
 const getValidTags = (tags, exampleTags) => {
   const exampleTagsKeys = Object.keys(exampleTags);
@@ -17,10 +16,15 @@ const getValidTags = (tags, exampleTags) => {
   return validTags;
 };
 
+async function createJPGFolder() {
+  const jpgDirectoryPath = path.resolve(`./Converted_JPG`);
+  await fs.rm(jpgDirectoryPath, { recursive: true, force: true });
+  await fs.mkdir(jpgDirectoryPath);
+}
+
 async function imageConverter(heicPath) {
   try {
-    const jpgDirectoryPath = path.resolve(`./Converted_JPG`);
-    await createJpgFolder(jpgDirectoryPath);
+    await createJPGFolder();
 
     const heicImgDirectoryPath = path.resolve(heicPath);
     const heicImgDirectory = await fs.readdir(heicImgDirectoryPath);

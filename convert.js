@@ -16,12 +16,7 @@ async function imageConverter(dirPath) {
   const pool = new Piscina({ maxThreads: 4 });
   const options = { filename: resolve(__dirname, 'convertWorker.js') };
 
-  await Promise.all([
-    pool.run(chunks[0], options),
-    pool.run(chunks[1], options),
-    pool.run(chunks[2], options),
-    pool.run(chunks[3], options),
-  ]);
+  await Promise.all(chunks.map((chunk) => pool.run(chunk, options)));
 }
 
 module.exports = imageConverter;
