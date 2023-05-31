@@ -1,19 +1,16 @@
+const { exiftool } = require('exiftool-vendored');
+const convert = require('heic-convert');
 const fs = require('fs/promises');
 const path = require('path');
-const convert = require('heic-convert');
-const { exiftool } = require('exiftool-vendored');
+const { invalidTags } = require('./utils');
 
-const getValidTags = (tags, exampleTags) => {
-  const exampleTagsKeys = Object.keys(exampleTags);
-  const validTags = {};
-
-  for (const key in tags) {
-    if (exampleTagsKeys.includes(key)) {
-      validTags[key] = tags[key];
+const getValidTags = (tags) => {
+  return Object.keys(tags).reduce((acc, key) => {
+    if (!invalidTags.includes(key)) {
+      acc[key] = tags[key];
     }
-  }
-
-  return validTags;
+    return acc;
+  }, {});
 };
 
 async function imageConverter(heicImgDirectory) {
@@ -25,7 +22,9 @@ async function imageConverter(heicImgDirectory) {
     for (const heicImgName of heicImgDirectory) {
       const heicImgPath = path.resolve(`./${heicImgName}`);
       const heicInputImgBuffer = await fs.readFile(heicImgPath);
+
       const tags = await exiftool.read(heicImgPath);
+      const validTags = getValidTags(tags, exampleTags);
 
       const heicOutputImgBuffer = await convert({
         buffer: heicInputImgBuffer,
@@ -37,9 +36,6 @@ async function imageConverter(heicImgDirectory) {
       const jpgImgPath = path.resolve(`./Converted_JPG/${jpgImgName}.jpg`);
 
       await fs.writeFile(jpgImgPath, heicOutputImgBuffer);
-
-      const validTags = getValidTags(tags, exampleTags);
-
       await exiftool.write(jpgImgPath, validTags);
       await fs.rm(`${jpgImgPath}_original`);
 

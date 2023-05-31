@@ -4,7 +4,6 @@ const rename = require('./rename');
 const move = require('./move');
 const webp = require('./webp');
 const convert = require('./convert');
-const convertAsync = require('./convertAsync');
 
 program.version('1.0.0');
 
@@ -15,7 +14,6 @@ program
   .action(async (path) => {
     let t = process.hrtime();
     await convert(path);
-    // await convertAsync(path);
     t = process.hrtime(t);
 
     console.log(`Finished in ${t[0]}s`);
